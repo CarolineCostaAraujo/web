@@ -2,6 +2,8 @@ package br.com.fabios.web.controllers;
 
 import br.com.fabios.web.models.Administrador;
 import br.com.fabios.web.repository.AdministradoresRepository;
+import br.com.fabios.web.servico.CookieService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +21,9 @@ public class AdministradoresController {
     @Autowired
     private AdministradoresRepository repository;
     @GetMapping("/administradores")
-    public String index(Model model){
+    public String index(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
+        model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
+        model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
         List<Administrador> administradores = (List<Administrador>)repository.findAll();
         model.addAttribute("administradores", administradores);
         return "administradores/index";

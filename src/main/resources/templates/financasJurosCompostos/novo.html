@@ -1,0 +1,47 @@
+<div th:replace="~{compartilhado/topo}"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Novo Calculo</h1>
+                    <p class="mb-4">
+                        Aqui iremos calcular um novo juros
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4" style="padding: 30px;">
+                        <div>
+                            <a href="/calculadoraJurosCompostos/configuracaoJuros" class="btn btn-primary" style="margin-right: 10px;">Configurações dos Juros</a>
+                            <a href="/calculadoraJurosCompostos" class="btn btn-primary" style="margin-right: 20px;">Voltar</a>
+                        </div>
+                        <br>
+                        <form method="POST" action="/administradores/criar" onsubmit="return confirm('Confirmar ação?')">
+                            <div class="form-group">
+                                <label for="nomeCpfCpnj">Nome pessoa fisica / Razão social</label>
+                                <input type="text" class="form-control" required name="nomeCpfCpnj" id="nomeCpfCpnj" placeholder="Digite o nome pessoa fisica / Digite o nome da empresa:">
+                            </div>
+                            <div class="form-group">
+                                <label for="valorInvestir">Valor para investimento</label>
+                                <input type="text" onblur="this.value = parseFloat(this.value).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})" class="form-control" required name="valorInvestir" id="valorInvestir" placeholder="Digite o valor que deseja investir:">
+                            </div>
+                            <div class="form-group">
+                                <label for="mesesInvestimento">Meses que deseja investir</label>
+                                <select type="text" class="form-control" required name="mesesInvestimento" id="mesesInvestimento">
+                                    <option value="12">12 meses</option>
+                                    <option value="24">24 meses</option>
+                                    <option value="36">36 meses</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="jurosCompostos">Plano de Juros Atual</label>
+                                <select type="text" class="form-control" required name="jurosCompostos" id="jurosCompostos">
+                                    <option th:each="jurosCompostos : ${jurosCompostosList}" th:value="${jurosCompostos.id}" th:text="${jurosCompostos.name}"></option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Calcular Juros</button>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+<div th:replace="~{compartilhado/baixo}"></div>

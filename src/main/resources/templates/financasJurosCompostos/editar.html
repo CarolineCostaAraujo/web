@@ -1,0 +1,44 @@
+<div th:replace="~{compartilhado/topo}"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Edição de usuário</h1>
+                    <p class="mb-4">
+                        Aqui iremos editar um usuário
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4" style="padding: 30px;">
+                        <form method="POST" th:action="@{'/administradores/'+${administrador.id}} + '/atualizar'" onsubmit="return confirm('Confirmar ação?')">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control" th:value="${administrador.nome}" required name="nome" id="nome" placeholder="Digite o seu nome:">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" th:value="${administrador.email}" required name="email" id="email" placeholder="Digite o seu email:">
+                            </div>
+                            <div class="form-group">
+                                <label for="senha">Senha</label>
+                                <input type="password" class="form-control" th:value="${administrador.senha}" required name="senha" id="senha" placeholder="Digite a sua senha:">
+                            </div>
+                            <div class="form-group">
+                                <label for="observacao">Observação</label>
+                                <textarea class="form-control" name="observacao" id="observacao" placeholder="Digite a sua observação:" th:inline="text">[[${administrador.observacao}]]</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="nivelAcesso">Nível de Acesso</label>
+                                <input type="text" class="form-control" name="nivelAcesso" th:value="${administrador.nivelAcesso}" required id="nivelAcesso" placeholder="Digite o nível de acesso:">
+                            </div>
+                            <div class="form-group">
+                                <label for="endereco">Endereço</label>
+                                <input type="text" class="form-control" name="endereco" th:value="${administrador.endereco}" required id="endereco" placeholder="Digite o seu endereço:">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+<div th:replace="~{compartilhado/baixo}"></div>

@@ -13,6 +13,7 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
         model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
+        model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
         return "home/index";
     }
 }

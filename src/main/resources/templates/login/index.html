@@ -57,9 +57,8 @@
                                             <label class="custom-control-label" for="lembrar">Lembrar-se</label>
                                         </div>
                                     </div>
-                                    <div th:if="${erro != null}" th:text="${erro}" class="alert alert-danger" role="alert">
-
-                                    </div>
+                                    <div th:if="${erro != null}" th:text="${erro}" class="alert alert-danger" role="alert"></div>
+                                    <div th:if="${expirado != null}" th:text="${expirado}" class="alert alert-danger" role="alert"></div>
                                     <button class="btn btn-primary btn-user btn-block">
                                         Login
                                     </button>

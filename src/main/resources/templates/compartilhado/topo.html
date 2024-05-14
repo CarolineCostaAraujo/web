@@ -53,13 +53,35 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Interface
+            Finanças
+        </div>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+               aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Calculadoras</span>
+            </a>
+            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Calculadoras</h6>
+                    <a class="collapse-item active" href="/calculadoraJurosCompostos">Juros Compostos</a>
+                </div>
+            </div>
+        </li>
+
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Configurações
         </div>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
             <a class="nav-link" href="/administradores">
-                <i class="fas fa-fw fa-table"></i>
+                <i class="fas fa-fw fa-cog"></i>
                 <span>Logins - Admin's</span></a>
         </li>
 
@@ -97,9 +119,9 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${nome}"></span>
                             <img class="img-profile rounded-circle"
-                                 src="/img/undraw_profile.svg">
+                                 th:src="${imgPerfil}">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

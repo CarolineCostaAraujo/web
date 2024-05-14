@@ -32,4 +32,7 @@ public class Administrador {
 
     @Column(name = "nivelAcesso")
     private String nivelAcesso;
+
+    @Column(name = "imgPerfil")
+    private String imgPerfil;
 }

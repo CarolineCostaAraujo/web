@@ -25,6 +25,11 @@ public class LoginController {
     @PostMapping("/logar")
     public String logar(Model model, Administrador admParam, String lembrar, HttpServletResponse response) throws UnsupportedEncodingException {
         Administrador adm = this.repository.login(admParam.getEmail(),admParam.getSenha());
+        if (adm.getNivelAcesso().equals("expirado")){
+            model.addAttribute("expirado", "Usuário expirado, por gentileza entrar em contato com o Administrador");
+            return "login/index";
+        }
+
         if (adm != null){
             int tempoLogado = (60*60); //1 hora de cookie
             if (lembrar != null){
@@ -32,6 +37,7 @@ public class LoginController {
             }
             CookieService.setCookie(response,"usuarioId",String.valueOf(adm.getId()), tempoLogado);
             CookieService.setCookie(response,"nomeUsuario",String.valueOf(adm.getNome()), tempoLogado);
+            CookieService.setCookie(response,"imgPerfil",String.valueOf(adm.getImgPerfil()), tempoLogado);
             return "redirect:/";
         }
         model.addAttribute("erro", "Usuário ou senha inválidos");

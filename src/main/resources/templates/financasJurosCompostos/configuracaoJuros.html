@@ -1,0 +1,67 @@
+<div th:replace="~{compartilhado/topo}"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Configurações dos Juros Compostos</h1>
+                    <p class="mb-4">
+                        Alterar as configurações do juros atuais
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <a href="/calculadoraJurosCompostos/novoPlanoDeJuros" class="btn btn-primary" style="margin-right: 10px;">Criar um novo plano de Juros</a>
+                            <a href="/calculadoraJurosCompostos/novo" class="btn btn-primary" style="margin-right: 20px;">Voltar</a>
+                            <h6 class="m-0 font-weight-bold text-primary" style="display: inline-block;">Lista de planos para os juros</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nome</th>
+                                            <th>Taxa de Juros a.m (%)</th>
+                                            <th>Taxa de Emissão (%)</th>
+                                            <th>IOF (%)</th>
+                                            <th>Data de emissão</th>
+                                            <th>Usuário Responsável</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nome</th>
+                                            <th>Taxa de Juros a.m (%)</th>
+                                            <th>Taxa de Emissão (%)</th>
+                                            <th>IOF (%)</th>
+                                            <th>Data de emissão</th>
+                                            <th>Usuário Responsável</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr th:each="jurosCompostos : ${jurosCompostosList}">
+                                            <td th:text="${jurosCompostos.id}"></td>
+                                            <td th:text="${jurosCompostos.name}"></td>
+                                            <td th:text="${jurosCompostos.fee}"></td>
+                                            <td th:text="${jurosCompostos.txAdmConfig}"></td>
+                                            <td th:text="${jurosCompostos.iofConfig}"></td>
+                                            <td th:text="${jurosCompostos.date}"></td>
+                                            <td th:text="${jurosCompostos.usuario}"></td>
+                                            <td><a th:href="@{'/administradores/'+${jurosCompostos.id}}" class="btn btn-warning">Alterar</a></td>
+                                            <td><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${jurosCompostos.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+<div th:replace="~{compartilhado/baixo}"></div>
