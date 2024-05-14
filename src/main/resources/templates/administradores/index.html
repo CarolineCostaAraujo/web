@@ -1,4 +1,4 @@
-<div th:replace="compartilhado/topo"></div>
+<div th:replace="~{compartilhado/topo}"></div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -11,13 +11,15 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Lista de usuários</h6>
+                            <a href="/administradores/novo" class="btn btn-primary" style="margin-right: 20px;">novo</a>
+                            <h6 class="m-0 font-weight-bold text-primary" style="display: inline-block">Lista de usuários</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Nome</th>
                                             <th>Email</th>
                                             <th>Endereço</th>
@@ -28,6 +30,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Nome</th>
                                             <th>Email</th>
                                             <th>Endereço</th>
@@ -37,23 +40,15 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Fabio Luan</td>
-                                            <td>fabio@teste@gmail.com</td>
-                                            <td>rua jesus</td>
-                                            <td>ADM</td>
-                                            <td><a href="#" class="btn btn-warning">Alterar</a></td>
-                                            <td><a href="#" class="btn btn-danger">Excluir</a></td>
+                                        <tr th:each="administrador : ${administradores}">
+                                            <td th:text="${administrador.id}"></td>
+                                            <td th:text="${administrador.nome}"></td>
+                                            <td th:text="${administrador.email}"></td>
+                                            <td th:text="${administrador.endereco}"></td>
+                                            <td th:text="${administrador.nivelAcesso}"></td>
+                                            <td><a th:href="@{'/administradores/'+${administrador.id}}" class="btn btn-warning">Alterar</a></td>
+                                            <td><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${administrador.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>Operador</td>
-                                            <td><a href="#" class="btn btn-warning">Alterar</a></td>
-                                            <td><a href="#" class="btn btn-danger">Excluir</a></td>
-                                        </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -62,4 +57,4 @@
 
                 </div>
                 <!-- /.container-fluid -->
-<div th:replace="compartilhado/baixo"></div>
+<div th:replace="~{compartilhado/baixo}"></div>
