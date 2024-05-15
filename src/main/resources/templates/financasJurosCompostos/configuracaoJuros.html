@@ -27,8 +27,8 @@
                                             <th>IOF (%)</th>
                                             <th>Data de emissão</th>
                                             <th>Usuário Responsável</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th th:if="${nivelAcesso == 'adm'}"></th>
+                                            <th th:if="${nivelAcesso == 'adm'}"></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -40,8 +40,8 @@
                                             <th>IOF (%)</th>
                                             <th>Data de emissão</th>
                                             <th>Usuário Responsável</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th th:if="${nivelAcesso == 'adm'}"></th>
+                                            <th th:if="${nivelAcesso == 'adm'}"></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -53,8 +53,8 @@
                                             <td th:text="${jurosCompostos.iofConfig}"></td>
                                             <td th:text="${#dates.format(jurosCompostos.date, 'dd/MM/yyyy HH:mm')}"></td>
                                             <td th:text="${jurosCompostos.usuario}"></td>
-                                            <td style="text-align: center;"><a th:href="@{'/administradores/'+${jurosCompostos.id}}" class="btn btn-warning">Alterar</a></td>
-                                            <td style="text-align: center;"><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${jurosCompostos.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
+                                            <td th:if="${nivelAcesso == 'adm'}" style="text-align: center;"><a  th:href="@{'/administradores/'+${jurosCompostos.id}}" class="btn btn-warning">Alterar</a></td>
+                                            <td th:if="${nivelAcesso == 'adm'}" style="text-align: center;"><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${jurosCompostos.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

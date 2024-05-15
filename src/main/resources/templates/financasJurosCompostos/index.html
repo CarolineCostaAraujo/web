@@ -18,6 +18,9 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
+                                    <tr th:if="${not #lists.isEmpty(calTotais)}">
+                                        <th colspan="6" style="text-align: center;">Total de consultas: <span th:text="${#lists.size(calTotais)}"></span></th>
+                                    </tr>
                                         <tr>
                                             <th>Id</th>
                                             <th>Cliente</th>
@@ -43,11 +46,18 @@
                                             <td th:text="${CalculoJurosCompostos.clientePesquisado}"></td>
                                             <td style="text-align: center;"><a th:href="@{'/calculadoraJurosCompostos/calculoMensal/'+${CalculoJurosCompostos.id}}" class="btn btn-warning">Mensal</a></td>
                                             <td style="text-align: center;"><a th:href="@{'/calculadoraJurosCompostos/calculoAnual/'+${CalculoJurosCompostos.id}}" class="btn btn-danger">Anual</a></td>
-                                            <td th:text="${CalculoJurosCompostos.date}"></td>
+                                            <td th:text="${#dates.format(CalculoJurosCompostos.date, 'dd/MM/yyyy HH:mm')}"></td>
                                             <td th:text="${CalculoJurosCompostos.cliente.nome}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        var table = document.getElementById("dataTable");
+                                        var rowCount = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+                                        console.log("Número de linhas na tabela: " + rowCount);
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>

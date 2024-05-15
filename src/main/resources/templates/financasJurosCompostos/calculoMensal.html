@@ -40,6 +40,7 @@
                                 const currentDay = dataInicial.getDate();
 
                                 let saldoInicial = valorNumerico - (valorNumerico * txAdm) - (valorNumerico * iof);
+                                let total = saldoInicial;
 
                                 for (let i = 0; i < time; i++) {
                                     const newDate = new Date(currentYear, currentMonth, currentDay);
@@ -77,7 +78,16 @@
                                     resultBody.appendChild(row);
 
                                     saldoInicial = recebiveisAcumulados - txAdm - iof;
+                                    total = recebiveisAcumulados;
                                 }
+
+                                // Atualiza o resultado total
+                                const totalElement = document.getElementById('total');
+                                totalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+
+                                // Atualiza o saldo final na div result
+                                const resultElement = document.getElementById('total');
+                                resultElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
                             });
                         </script>
 
@@ -120,5 +130,6 @@
                     </div>
 
                 </div>
+
                 <!-- /.container-fluid -->
 <div th:replace="~{compartilhado/baixo}"></div>

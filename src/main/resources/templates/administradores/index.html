@@ -24,8 +24,8 @@
                                             <th>Email</th>
                                             <th>Endereço</th>
                                             <th>Nivel usuário</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th th:if="${nivelAcesso == 'adm'}" ></th>
+                                            <th th:if="${nivelAcesso == 'adm'}"></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -35,8 +35,8 @@
                                             <th>Email</th>
                                             <th>Endereço</th>
                                             <th>Nivel usuário</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th th:if="${nivelAcesso == 'adm'}"></th>
+                                            <th th:if="${nivelAcesso == 'adm'}"></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -46,8 +46,8 @@
                                             <td th:text="${administrador.email}"></td>
                                             <td th:text="${administrador.endereco}"></td>
                                             <td th:text="${administrador.nivelAcesso}"></td>
-                                            <td style="text-align: center;"><a th:href="@{'/administradores/'+${administrador.id}}" class="btn btn-warning">Alterar</a></td>
-                                            <td style="text-align: center;"><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${administrador.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
+                                            <td th:if="${nivelAcesso == 'adm'}" style="text-align: center;"><a th:href="@{'/administradores/'+${administrador.id}}" class="btn btn-warning">Alterar</a></td>
+                                            <td th:if="${nivelAcesso == 'adm'}" style="text-align: center;"><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${administrador.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

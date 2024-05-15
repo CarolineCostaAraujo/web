@@ -29,7 +29,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="nivelAcesso">Nível de Acesso</label>
-                                <input type="text" class="form-control" name="nivelAcesso" required id="nivelAcesso" placeholder="Digite o nível de acesso:">
+                                <select type="text" class="form-control" required name="nivelAcesso" id="nivelAcesso">
+                                    <option value="funcionario">Funcionário</option>
+                                    <option value="gestor">Gestor</option>
+                                    <option th:if="${nivelAcesso == 'adm'}" value="adm">ADM</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="endereco">Endereço</label>

@@ -40,18 +40,18 @@
                                 const currentDay = dataInicial.getDate();
 
                                 let saldoInicial = valorNumerico - (valorNumerico * txAdm) - (valorNumerico * iof);
+                                let total = 0;
 
                                 for (let i = 0; i < time; i++) {
                                     const newDate = new Date(currentYear, currentMonth, currentDay);
                                     newDate.setMonth(newDate.getMonth() + i);
                                     const formattedDate = newDate.toLocaleDateString('pt-BR');
 
-                                    const total = (valorNumerico - (valorNumerico * txAdm) - (valorNumerico * iof)) * (1 + fee)**time;
-                                    document.getElementById('total').innerHTML = ("R$ " + total.toFixed(2).replace('.', ','));
-
                                     const jurosBrutos = saldoInicial * fee;
                                     const rentabilidadeFixada = saldoInicial * fee;
                                     const recebiveisAcumulados = saldoInicial + jurosBrutos;
+
+                                    total += recebiveisAcumulados;
 
                                     const row = document.createElement('tr');
                                     const vencimentoCell = document.createElement('td');
@@ -81,6 +81,10 @@
 
                                     saldoInicial = recebiveisAcumulados - txAdm - iof;
                                 }
+
+                                // Atualiza o resultado total
+                                const totalElement = document.getElementById('total');
+                                totalElement.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
                             });
                         </script>
 
