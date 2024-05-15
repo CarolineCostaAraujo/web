@@ -71,15 +71,15 @@
             </div>
         </li>
 
-        <hr class="sidebar-divider">
+        <hr class="sidebar-divider" th:if="${nivelAcesso != 'funcionario'}" >
 
         <!-- Heading -->
-        <div class="sidebar-heading">
+        <div class="sidebar-heading" th:if="${nivelAcesso != 'funcionario'}">
             Configurações
         </div>
 
         <!-- Nav Item - Tables -->
-        <li class="nav-item">
+        <li class="nav-item" th:if="${nivelAcesso != 'funcionario'}">
             <a class="nav-link" href="/administradores">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Logins - Admin's</span></a>

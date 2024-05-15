@@ -38,6 +38,7 @@ public class LoginController {
             CookieService.setCookie(response,"usuarioId",String.valueOf(adm.getId()), tempoLogado);
             CookieService.setCookie(response,"nomeUsuario",String.valueOf(adm.getNome()), tempoLogado);
             CookieService.setCookie(response,"imgPerfil",String.valueOf(adm.getImgPerfil()), tempoLogado);
+            CookieService.setCookie(response,"nivelAcesso",String.valueOf(adm.getNivelAcesso()), tempoLogado);
             return "redirect:/";
         }
         model.addAttribute("erro", "Usuário ou senha inválidos");

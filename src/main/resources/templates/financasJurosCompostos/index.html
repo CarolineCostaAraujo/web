@@ -20,34 +20,31 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Nome</th>
-                                            <th>Email</th>
-                                            <th>Endereço</th>
-                                            <th>Nivel usuário</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>Cliente</th>
+                                            <th style="text-align: center;">Visualizar</th>
+                                            <th style="text-align: center;">Visualizar</th>
+                                            <th>Data solicitação</th>
+                                            <th>Usuário Solicitante</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Nome</th>
-                                            <th>Email</th>
-                                            <th>Endereço</th>
-                                            <th>Nivel usuário</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th >Id</th>
+                                            <th>Cliente</th>
+                                            <th style="text-align: center;">Visualizar</th>
+                                            <th style="text-align: center;">Visualizar</th>
+                                            <th>Data solicitação</th>
+                                            <th>Usuário Solicitante</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr th:each="administrador : ${administradores}">
-                                            <td th:text="${administrador.id}"></td>
-                                            <td th:text="${administrador.nome}"></td>
-                                            <td th:text="${administrador.email}"></td>
-                                            <td th:text="${administrador.endereco}"></td>
-                                            <td th:text="${administrador.nivelAcesso}"></td>
-                                            <td><a th:href="@{'/administradores/'+${administrador.id}}" class="btn btn-warning">Alterar</a></td>
-                                            <td><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${administrador.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
+                                        <tr th:each="CalculoJurosCompostos : ${calTotais}">
+                                            <td th:text="${CalculoJurosCompostos.id}"></td>
+                                            <td th:text="${CalculoJurosCompostos.clientePesquisado}"></td>
+                                            <td style="text-align: center;"><a th:href="@{'/calculadoraJurosCompostos/calculoMensal/'+${CalculoJurosCompostos.id}}" class="btn btn-warning">Mensal</a></td>
+                                            <td style="text-align: center;"><a th:href="@{'/calculadoraJurosCompostos/calculoAnual/'+${CalculoJurosCompostos.id}}" class="btn btn-danger">Anual</a></td>
+                                            <td th:text="${CalculoJurosCompostos.date}"></td>
+                                            <td th:text="${CalculoJurosCompostos.cliente.nome}"></td>
                                         </tr>
                                     </tbody>
                                 </table>

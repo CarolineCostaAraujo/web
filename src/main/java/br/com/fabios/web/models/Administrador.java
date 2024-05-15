@@ -35,4 +35,7 @@ public class Administrador {
 
     @Column(name = "imgPerfil")
     private String imgPerfil;
+
+    @Column(name = "cliente")
+    private String cliente;
 }

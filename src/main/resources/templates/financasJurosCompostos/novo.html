@@ -15,14 +15,14 @@
                             <a href="/calculadoraJurosCompostos" class="btn btn-primary" style="margin-right: 20px;">Voltar</a>
                         </div>
                         <br>
-                        <form method="POST" action="/administradores/criar" onsubmit="return confirm('Confirmar ação?')">
+                        <form method="POST" action="/calculadoraJurosCompostos/criar" onsubmit="return confirm('Confirmar ação?')">
                             <div class="form-group">
-                                <label for="nomeCpfCpnj">Nome pessoa fisica / Razão social</label>
-                                <input type="text" class="form-control" required name="nomeCpfCpnj" id="nomeCpfCpnj" placeholder="Digite o nome pessoa fisica / Digite o nome da empresa:">
+                                <label for="clientePesquisado">Nome pessoa fisica / Razão social</label>
+                                <input type="text" class="form-control" required name="clientePesquisado" id="clientePesquisado" placeholder="Digite o nome pessoa fisica / Digite o nome da empresa:">
                             </div>
                             <div class="form-group">
-                                <label for="valorInvestir">Valor para investimento</label>
-                                <input type="text" onblur="this.value = parseFloat(this.value).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})" class="form-control" required name="valorInvestir" id="valorInvestir" placeholder="Digite o valor que deseja investir:">
+                                <label for="valorInvestido">Valor para investimento</label>
+                                <input type="text" onblur="this.value = parseFloat(this.value).toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})" class="form-control" required name="valorInvestido" id="valorInvestido" placeholder="Digite o valor que deseja investir:">
                             </div>
                             <div class="form-group">
                                 <label for="mesesInvestimento">Meses que deseja investir</label>

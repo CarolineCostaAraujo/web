@@ -22,11 +22,16 @@ public class AdministradoresController {
     private AdministradoresRepository repository;
     @GetMapping("/administradores")
     public String index(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
-        model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
-        model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
-        List<Administrador> administradores = (List<Administrador>)repository.findAll();
-        model.addAttribute("administradores", administradores);
-        return "administradores/index";
+        Model acesso = model.addAttribute("nivelAcesso", CookieService.getCookie(request, "nivelAcesso"));
+        if (acesso.getAttribute("nivelAcesso") == "funcionario"){
+            return "home/index";
+        } else {
+            model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
+            model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
+            List<Administrador> administradores = (List<Administrador>) repository.findAll();
+            model.addAttribute("administradores", administradores);
+            return "administradores/index";
+        }
     }
 
     @GetMapping("/administradores/novo")

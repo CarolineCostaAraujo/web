@@ -1,8 +1,10 @@
 package br.com.fabios.web.controllers;
 
 import br.com.fabios.web.models.Administrador;
+import br.com.fabios.web.models.CalculoJurosCompostos;
 import br.com.fabios.web.models.JurosCompostos;
 import br.com.fabios.web.repository.AdministradoresRepository;
+import br.com.fabios.web.repository.CalculoJurosCompostosRepository;
 import br.com.fabios.web.repository.JurosCompostosRepository;
 import br.com.fabios.web.servico.CookieService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,13 +27,17 @@ public class FinancasJurosCompostosController {
     private JurosCompostosRepository repository;
 
     @Autowired
+    private CalculoJurosCompostosRepository calculoRepository;
+
+    @Autowired
     private AdministradoresRepository usuarioRepository;
     @GetMapping("/calculadoraJurosCompostos")
     public String index(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
+        request.setAttribute("role", "GESTOR");
         model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
         model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
-//        List<Administrador> administradores = (List<Administrador>)repository.findAll();
-//        model.addAttribute("administradores", administradores);
+        List<CalculoJurosCompostos> calTotais = (List<CalculoJurosCompostos>)calculoRepository.findAll();
+        model.addAttribute("calTotais", calTotais);
         return "financasJurosCompostos/index";
     }
 
@@ -61,8 +67,9 @@ public class FinancasJurosCompostosController {
     }
 
     @PostMapping("/calculadoraJurosCompostos/novoPlanoDeJuros/criar")
-    public String criar(JurosCompostos jcTaxas, Model model,HttpServletRequest request) throws UnsupportedEncodingException {
+    public String criarPlanoDeJuros(JurosCompostos jcTaxas, Model model,HttpServletRequest request) throws UnsupportedEncodingException {
         model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
+        model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
         String nomeUsuario = (String) model.getAttribute("nome");
         JurosCompostos jc = new JurosCompostos();
         jc.setFee(jcTaxas.getFee()/100);
@@ -74,18 +81,47 @@ public class FinancasJurosCompostosController {
         repository.save(jc);
         return "redirect:/calculadoraJurosCompostos/configuracaoJuros";
     }
-//
-//    @GetMapping("/administradores/{id}")
-//    public String busca(@PathVariable int id, Model model){
-//        Optional<Administrador> admin = repository.findById(id);
-//        try {
-//            model.addAttribute("administrador", admin.get());
-//        }
-//        catch (Exception error){
-//            return "redirect:/administradores";
-//        }
-//        return "/administradores/editar";
-//    }
+
+    @PostMapping("/calculadoraJurosCompostos/criar")
+    public String criarCalculo(JurosCompostos jurosCompostos, Model model,HttpServletRequest request, CalculoJurosCompostos calculoJurosCompostos) throws UnsupportedEncodingException {
+        model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
+        model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
+        String nomeUsuario = (String) model.getAttribute("nome");
+        Administrador usuario = usuarioRepository.findbyName(nomeUsuario);
+        calculoJurosCompostos.setCliente(usuario);
+        calculoJurosCompostos.setDate(new Date());
+        calculoJurosCompostos.setJurosCompostos(jurosCompostos);
+        calculoRepository.save(calculoJurosCompostos);
+        return "redirect:/calculadoraJurosCompostos";
+    }
+
+    @GetMapping("/calculadoraJurosCompostos/calculoMensal/{id}")
+    public String buscaMensal(@PathVariable int id, Model model, HttpServletRequest request) throws UnsupportedEncodingException {
+        model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
+        model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
+        Optional<CalculoJurosCompostos> calculoJurosCompostos = calculoRepository.findById(id);
+        try {
+            model.addAttribute("calculoJurosCompostos", calculoJurosCompostos.get());
+        }
+        catch (Exception error){
+            return "redirect:/calculadoraJurosCompostos";
+        }
+        return "/financasJurosCompostos/calculoMensal";
+    }
+
+    @GetMapping("/calculadoraJurosCompostos/calculoAnual/{id}")
+    public String buscaAnual(@PathVariable int id, Model model, HttpServletRequest request) throws UnsupportedEncodingException {
+        model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
+        model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
+        Optional<CalculoJurosCompostos> calculoJurosCompostos = calculoRepository.findById(id);
+        try {
+            model.addAttribute("calculoJurosCompostos", calculoJurosCompostos.get());
+        }
+        catch (Exception error){
+            return "redirect:/calculadoraJurosCompostos";
+        }
+        return "/financasJurosCompostos/calculoAnual";
+    }
 //
 //    @PostMapping("/administradores/{id}/atualizar")
 //    public String atualizar(@PathVariable int id, Administrador administrador){

@@ -51,10 +51,10 @@
                                             <td th:text="${jurosCompostos.fee}"></td>
                                             <td th:text="${jurosCompostos.txAdmConfig}"></td>
                                             <td th:text="${jurosCompostos.iofConfig}"></td>
-                                            <td th:text="${jurosCompostos.date}"></td>
+                                            <td th:text="${#dates.format(jurosCompostos.date, 'dd/MM/yyyy HH:mm')}"></td>
                                             <td th:text="${jurosCompostos.usuario}"></td>
-                                            <td><a th:href="@{'/administradores/'+${jurosCompostos.id}}" class="btn btn-warning">Alterar</a></td>
-                                            <td><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${jurosCompostos.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
+                                            <td style="text-align: center;"><a th:href="@{'/administradores/'+${jurosCompostos.id}}" class="btn btn-warning">Alterar</a></td>
+                                            <td style="text-align: center;"><a href="#" th:onclick="'if(confirm(\'Confirmar exclusão?\'))window.location.href = \'' + @{/administradores/{id}(id=${jurosCompostos.id})} + '/excluir\''" class="btn btn-danger">Excluir</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

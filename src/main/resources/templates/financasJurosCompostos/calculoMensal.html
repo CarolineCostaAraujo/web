@@ -1,0 +1,124 @@
+<div th:replace="~{compartilhado/topo}"></div>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Calculadora Juros Compostos</h1>
+                    <p class="mb-4">
+                        Criação e históricos dos calcúlos já gerados
+                    </p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <a href="/calculadoraJurosCompostos" class="btn btn-primary" style="margin-right: 20px;">Voltar</a>
+                            <h6 class="m-0 font-weight-bold text-primary" style="display: inline-block;">Calculo Mensal</h6>
+                        </div>
+                        <input type="hidden" id="txAdmConfig" th:value="${calculoJurosCompostos.jurosCompostos.txAdmConfig}">
+                        <input type="hidden" id="iofConfig" th:value="${calculoJurosCompostos.jurosCompostos.iofConfig}">
+                        <input type="hidden" id="value" th:value="${calculoJurosCompostos.valorInvestido}">
+                        <input type="hidden" id="fee" th:value="${calculoJurosCompostos.jurosCompostos.fee}">
+                        <input type="hidden" id="time" th:value="${calculoJurosCompostos.mesesInvestimento}">
+                        <input type="hidden" id="dataInicial" th:value="${calculoJurosCompostos.date}">
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const dataInicial = new Date(document.getElementById('dataInicial').value);
+                                const txAdm = parseFloat(document.getElementById('txAdmConfig').value);
+                                const iof = parseFloat(document.getElementById('iofConfig').value);
+                                const valueInput = document.getElementById('value');
+                                const valorInvestidoString = valueInput.value.replace(/\D/g, '');
+                                const valorNumerico = parseFloat(valorInvestidoString) / 100; // Convertendo para centavos
+                                const fee = parseFloat(document.getElementById('fee').value);
+                                const time = parseInt(document.getElementById('time').value);
+
+                                const resultBody = document.getElementById('resultBody');
+                                resultBody.innerHTML = ''; // Limpar resultados anteriores
+
+                                const currentMonth = dataInicial.getMonth();
+                                const currentYear = dataInicial.getFullYear();
+                                const currentDay = dataInicial.getDate();
+
+                                let saldoInicial = valorNumerico - (valorNumerico * txAdm) - (valorNumerico * iof);
+
+                                for (let i = 0; i < time; i++) {
+                                    const newDate = new Date(currentYear, currentMonth, currentDay);
+                                    newDate.setMonth(newDate.getMonth() + i);
+                                    const formattedDate = newDate.toLocaleDateString('pt-BR');
+
+                                    const jurosBrutos = saldoInicial * fee;
+                                    const rentabilidadeFixada = saldoInicial * fee;
+                                    const recebiveisAcumulados = saldoInicial + jurosBrutos;
+
+                                    const row = document.createElement('tr');
+                                    const vencimentoCell = document.createElement('td');
+                                    const saldoInicialCell = document.createElement('td');
+                                    const jurosBrutosCell = document.createElement('td');
+                                    const rentabilidadeFixadaCell = document.createElement('td');
+                                    const recebiveisAcumuladosCell = document.createElement('td');
+                                    const valueZero = document.createElement('td');
+                                    const valueZero2 = document.createElement('td');
+
+                                    vencimentoCell.textContent = formattedDate;
+                                    saldoInicialCell.textContent = `R$ ${saldoInicial.toFixed(2).replace('.', ',')}`;
+                                    jurosBrutosCell.textContent = `R$ ${jurosBrutos.toFixed(2).replace('.', ',')}`;
+                                    rentabilidadeFixadaCell.textContent = `R$ ${rentabilidadeFixada.toFixed(2).replace('.', ',')}`;
+                                    recebiveisAcumuladosCell.textContent = `R$ ${recebiveisAcumulados.toFixed(2).replace('.', ',')}`;
+                                    valueZero.textContent = '';
+                                    valueZero2.textContent = '';
+
+                                    row.appendChild(vencimentoCell);
+                                    row.appendChild(valueZero);
+                                    row.appendChild(valueZero2);
+                                    row.appendChild(saldoInicialCell);
+                                    row.appendChild(jurosBrutosCell);
+                                    row.appendChild(rentabilidadeFixadaCell);
+                                    row.appendChild(recebiveisAcumuladosCell);
+                                    resultBody.appendChild(row);
+
+                                    saldoInicial = recebiveisAcumulados - txAdm - iof;
+                                }
+                            });
+                        </script>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Vencimento</th>
+                                            <th>IR</th>
+                                            <th></th>
+                                            <th>Saldo Inicial</th>
+                                            <th>Juros Brutos</th>
+                                            <th>Rentabilidade Fixada</th>
+                                            <th>Recebíveis Acumulados</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Vencimento</th>
+                                            <th>IR</th>
+                                            <th></th>
+                                            <th>Saldo Inicial</th>
+                                            <th>Juros Brutos</th>
+                                            <th>Rentabilidade Fixada</th>
+                                            <th>Recebíveis Acumulados</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody id="resultBody">
+                                    </tbody>
+                                </table>
+                                <div id="result">
+                                    <h4>Resultado:</h4>
+                                    <span id="total">
+                                        R$ 0,00
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+<div th:replace="~{compartilhado/baixo}"></div>

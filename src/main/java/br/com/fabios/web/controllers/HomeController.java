@@ -14,6 +14,7 @@ public class HomeController {
     public String index(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
         model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
         model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
+        model.addAttribute("nivelAcesso", CookieService.getCookie(request, "nivelAcesso"));
         return "home/index";
     }
 }
