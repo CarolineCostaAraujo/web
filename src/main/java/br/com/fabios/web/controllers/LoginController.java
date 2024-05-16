@@ -25,12 +25,12 @@ public class LoginController {
     @PostMapping("/logar")
     public String logar(Model model, Administrador admParam, String lembrar, HttpServletResponse response) throws UnsupportedEncodingException {
         Administrador adm = this.repository.login(admParam.getEmail(),admParam.getSenha());
-        if (adm.getNivelAcesso().equals("expirado")){
-            model.addAttribute("expirado", "Usuário expirado, por gentileza entrar em contato com o Administrador");
-            return "login/index";
-        }
 
         if (adm != null){
+            if (adm.getNivelAcesso().equals("expirado")){
+                model.addAttribute("expirado", "Usuário expirado, por gentileza entrar em contato com o Administrador");
+                return "login/index";
+            }
             int tempoLogado = (60*60); //1 hora de cookie
             if (lembrar != null){
                 tempoLogado = (60*60*24*365); // 1 ano de cookie

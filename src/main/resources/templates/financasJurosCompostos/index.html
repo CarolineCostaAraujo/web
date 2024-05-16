@@ -24,6 +24,7 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Cliente</th>
+                                            <th>Tipo de Juros</th>
                                             <th style="text-align: center;">Visualizar</th>
                                             <th style="text-align: center;">Visualizar</th>
                                             <th>Data solicitação</th>
@@ -34,6 +35,7 @@
                                         <tr>
                                             <th >Id</th>
                                             <th>Cliente</th>
+                                            <th>Tipo de Juros</th>
                                             <th style="text-align: center;">Visualizar</th>
                                             <th style="text-align: center;">Visualizar</th>
                                             <th>Data solicitação</th>
@@ -44,6 +46,7 @@
                                         <tr th:each="CalculoJurosCompostos : ${calTotais}">
                                             <td th:text="${CalculoJurosCompostos.id}"></td>
                                             <td th:text="${CalculoJurosCompostos.clientePesquisado}"></td>
+                                            <td th:text="${CalculoJurosCompostos.jurosCompostos.name}"></td>
                                             <td style="text-align: center;"><a th:href="@{'/calculadoraJurosCompostos/calculoMensal/'+${CalculoJurosCompostos.id}}" class="btn btn-warning">Mensal</a></td>
                                             <td style="text-align: center;"><a th:href="@{'/calculadoraJurosCompostos/calculoAnual/'+${CalculoJurosCompostos.id}}" class="btn btn-danger">Anual</a></td>
                                             <td th:text="${#dates.format(CalculoJurosCompostos.date, 'dd/MM/yyyy HH:mm')}"></td>

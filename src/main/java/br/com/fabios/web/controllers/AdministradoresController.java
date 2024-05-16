@@ -20,41 +20,41 @@ import java.util.Optional;
 @Controller
 public class AdministradoresController {
 
-    public void cookies (Model model, HttpServletRequest request) throws UnsupportedEncodingException{
+    public void cookies (Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
         model.addAttribute("nivelAcesso", CookieService.getCookie(request, "nivelAcesso"));
         model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
         model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
+        if(CookieService.getCookie(request, "nivelAcesso").equals("funcionario")){
+            response.sendRedirect("/login");
+        }
     }
 
     @Autowired
     private AdministradoresRepository repository;
     @GetMapping("/administradores")
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(CookieService.getCookie(request, "nivelAcesso").equals("funcionario")){
-            response.sendRedirect("/login");
-        }
-        cookies(model,request);
+        cookies(model,request,response);
             List<Administrador> administradores = (List<Administrador>) repository.findAll();
             model.addAttribute("administradores", administradores);
             return "administradores/index";
     }
 
     @GetMapping("/administradores/novo")
-    public String novo(Model model, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        cookies(model,request);
+    public String novo(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        cookies(model,request,response);
         return "administradores/novo";
     }
 
     @PostMapping("/administradores/criar")
-    public String criar(Administrador administrador, Model model, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        cookies(model,request);
+    public String criar(Administrador administrador, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        cookies(model,request,response);
         repository.save(administrador);
         return "redirect:/administradores";
     }
 
     @GetMapping("/administradores/{id}")
-    public String busca(@PathVariable int id, Model model, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        cookies(model,request);
+    public String busca(@PathVariable int id, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        cookies(model,request,response);
         Optional<Administrador> admin = repository.findById(id);
         try {
             model.addAttribute("administrador", admin.get());
@@ -66,8 +66,8 @@ public class AdministradoresController {
     }
 
     @PostMapping("/administradores/{id}/atualizar")
-    public String atualizar(@PathVariable int id, Administrador administrador,Model model, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        cookies(model,request);
+    public String atualizar(@PathVariable int id, Administrador administrador,Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        cookies(model,request,response);
         if(!repository.exist(id)){
             return "redirect:/administradores";
         }

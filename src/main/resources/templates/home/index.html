@@ -10,7 +10,7 @@
                 </div>
 
                 <!-- Content Row -->
-                <div class="row">
+                <div class="row" th:if="${nivelAcesso == 'adm'}">
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
@@ -98,7 +98,7 @@
 
                 <!-- Content Row -->
 
-                <div class="row">
+                <div class="row" th:if="${nivelAcesso == 'adm'}">
 
                     <!-- Area Chart -->
                     <div class="col-xl-8 col-lg-7">
@@ -175,7 +175,7 @@
                 </div>
 
                 <!-- Content Row -->
-                <div class="row">
+                <div class="row" th:if="${nivelAcesso == 'adm'}">
 
                     <!-- Content Column -->
                     <div class="col-lg-6 mb-4">

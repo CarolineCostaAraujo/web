@@ -32,6 +32,7 @@
                                 <select type="text" class="form-control" required name="nivelAcesso" id="nivelAcesso">
                                     <option value="funcionario">Funcionário</option>
                                     <option value="gestor">Gestor</option>
+                                    <option th:if="${nivelAcesso == 'adm'}" value="expirado">Expirado</option>
                                     <option th:if="${nivelAcesso == 'adm'}" value="adm">ADM</option>
                                 </select>
                             </div>
