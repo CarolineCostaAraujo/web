@@ -24,10 +24,6 @@ jobs:
       - name: Build com Maven
         run: mvn -B -e -X package --file pom.xml
 
-      - name: Exibir relatórios de teste em caso de falha
-        if: failure()
-        run: cat target/surefire-reports/*.txt
-
       - name: Criando o diretório para o Build do JAR
         run: mkdir ./jar-upload
 
