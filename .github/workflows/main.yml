@@ -61,7 +61,7 @@ jobs:
           expect \"password:\"
           send \"$SENHACPANEL\r\"
           expect \"$ \"
-          send \"bash appservers/tmp/${{ steps.set_jar_name.outputs.jar_name }}.sh stop\r\"
+          send \"bash appservers/standalone/${{ steps.set_jar_name.outputs.jar_name }}.sh stop\r\"
           expect \"$ \"
           send \"exit\r\"
           expect eof
@@ -79,7 +79,7 @@ jobs:
           expect \"password:\"
           send \"$SENHACPANEL\r\"
           expect \"$ \"
-          send \"bash appservers/tmp/${{ steps.set_jar_name.outputs.jar_name }}.sh start\r\"
+          send \"bash appservers/standalone/${{ steps.set_jar_name.outputs.jar_name }}.sh start\r\"
           expect \"$ \"
           send \"exit\r\"
           expect eof
