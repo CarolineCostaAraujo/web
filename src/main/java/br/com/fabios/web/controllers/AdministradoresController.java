@@ -54,7 +54,9 @@ public class AdministradoresController {
 
     @GetMapping("/administradores/{id}")
     public String busca(@PathVariable int id, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        cookies(model,request,response);
+        model.addAttribute("nivelAcesso", CookieService.getCookie(request, "nivelAcesso"));
+        model.addAttribute("nome", CookieService.getCookie(request, "nomeUsuario"));
+        model.addAttribute("imgPerfil", CookieService.getCookie(request, "imgPerfil"));
         Optional<Administrador> admin = repository.findById(id);
         try {
             model.addAttribute("administrador", admin.get());
